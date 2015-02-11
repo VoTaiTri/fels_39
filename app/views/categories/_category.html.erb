@@ -1,0 +1,9 @@
+<li id="category-<%= category.id %>">
+  <span class="col-md-8">
+    <h3><%= category.title %></h3>
+    <%= category.body %>
+    <%= form_for [category, @lesson] do |f| %>
+      <%= f.submit "Start", class: "btn btn-primary" %>
+    <% end %>
+  </span>
+</li>

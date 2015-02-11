@@ -14,12 +14,12 @@
 ActiveRecord::Schema.define(version: 20150209025704) do
 
   create_table "activities", force: :cascade do |t|
-    t.integer  "user_id_id"
-    t.integer  "lesson_id_id"
-    t.integer  "result_id_id"
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.integer  "result_id"
     t.string   "action_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "answers", force: :cascade do |t|

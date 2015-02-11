@@ -12,4 +12,9 @@ User.create!(name:  "Example User",
                email: email,
                password:              password,
                password_confirmation: password)
+
+30.times do |n|
+  title = Faker::Name.title+" #{n+1}"
+  body = Faker::Lorem.sentences(20)
+  Category.create!(title: title, body: body)
 end
