@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'following/index'
+
+  get 'followers/index'
+
   root 'static_pages#home'
   get 'help'    => 'static_pages#help'
   get 'about'   => 'static_pages#about'
@@ -9,7 +13,13 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    resources :followers 
+    resources :followings
+  end
+
+  resources :relationships, only: [:create, :destroy, :show]
+  
   resources :categories do
     resources :lessons
   end
