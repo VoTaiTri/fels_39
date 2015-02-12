@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20150209025704) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
 
   create_table "words", force: :cascade do |t|
-    t.string   "vietnamese"
     t.string   "japanese"
     t.integer  "category_id"
     t.datetime "created_at",  null: false
@@ -78,6 +77,6 @@ ActiveRecord::Schema.define(version: 20150209025704) do
   end
 
   add_index "words", ["category_id"], name: "index_words_on_category_id"
-  add_index "words", ["vietnamese"], name: "index_words_on_vietnamese", unique: true
+  add_index "words", ["japanese"], name: "index_words_on_japanese", unique: true
 
 end
