@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @unfollow = current_user.active_relationships.find_by followed: @user
+    @follow = current_user.active_relationships.build followed: @user
   end
 
   def create
@@ -50,7 +52,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password,:password_confirmation)
+    params.require(:user).permit :name, :email, :password,:password_confirmation
   end
 
   def correct_user

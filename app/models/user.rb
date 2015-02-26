@@ -1,5 +1,14 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token
+  has_many :active_relationships,  class_name:  'Relationship',
+                                   foreign_key: 'follower_id',
+                                   dependent:   :destroy
+  has_many :passive_relationships, class_name:  'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   before_save {self.email = email.downcase}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -22,7 +31,7 @@ class User < ActiveRecord::Base
 
   def remember
     self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    update_attributes(remember_digest: User.digest(remember_token))
   end
 
   def authenticated?(remember_token)
@@ -31,6 +40,18 @@ class User < ActiveRecord::Base
   end
 
   def forget
-    update_attribute(:remember_digest, nil)
+    update_attributes remember_digest: nil
+  end
+
+  def follow other_user 
+    active_relationships.create followed: other_user
+  end
+
+  def unfollow other_user
+    active_relationships.find_by(followed: other_user).destroy
+  end
+
+  def following? other_user
+    following.include? other_user
   end
 end
