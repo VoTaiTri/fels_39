@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  get 'following/index'
-
-  get 'followers/index'
-
   root 'static_pages#home'
+  get 'admin' => 'admin/static_pages#home'
+
   get 'help'    => 'static_pages#help'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
@@ -13,9 +11,12 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+  get 'following/index'
+  get 'followers/index'
+
   resources :users do
-    resources :followers 
-    resources :followings
+    resources :followers, :only => [:index]
+    resources :followings, :only => [:index]
   end
 
   resources :relationships, only: [:create, :destroy, :show]
@@ -24,6 +25,11 @@ Rails.application.routes.draw do
     resources :lessons
   end
   resources :words
+
+  namespace :admin do
+    resources :users
+    resources :categories
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

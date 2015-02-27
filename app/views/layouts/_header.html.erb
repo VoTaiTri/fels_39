@@ -1,11 +1,57 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "E-learing", root_path, id: "logo" %>
+    <% if logged_in_admin? %>
+      <%= link_to "e-learing for Admin", admin_path, id: "logo" %>
+    <% else %>
+      <%= link_to "e-learing", root_path, id: "logo" %>
+    <% end %>  
+
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "Help",   help_path %></li>
-        <% if logged_in? %>
+        <% if logged_in_admin? %>
+          <li><%= link_to "Home", admin_path %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Users <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "List users", admin_users_path %></li>
+              <li><%= link_to "Add new user", new_admin_user_path %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Categories <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "List categories", admin_categories_path %></li>
+              <li><%= link_to "Add new category", new_admin_category_path %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Words <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "List words", '#' %></li>
+              <li><%= link_to "Add new word", '#' %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", admin_user_path(current_user) %></li>
+              <li><%= link_to "Settings", edit_admin_user_path(current_user) %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: "delete" %>
+              </li>
+            </ul>
+          </li>
+        <% elsif logged_in_user? %>
+          <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "User", users_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,6 +67,7 @@
             </ul>
           </li>
         <% else %>
+          <li><%= link_to "Home", admin_path %></li>
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
       </ul>
