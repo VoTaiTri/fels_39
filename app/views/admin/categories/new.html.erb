@@ -1,0 +1,18 @@
+<% provide(:title, 'Add new category') %>
+<h1>Add new category</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for([:admin, @category]) do |f| %>
+      <%= render 'shared/category_error_messages' %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :body %>
+      <%= text_area :category, :body, cols: 20, rows: 10 %>
+
+      <%= f.submit "Create", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

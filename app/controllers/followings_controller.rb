@@ -2,6 +2,6 @@ class FollowingsController < ApplicationController
   def index
     @title = "Following"
     @user  = User.find_by params[:id]
-    @followings = @user.followers.paginate page: params[:page], per_page: 10
+    @users = @user.followers.paginate page: params[:page], per_page: 10
   end
 end

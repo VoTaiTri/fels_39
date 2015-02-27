@@ -1,0 +1,12 @@
+<% provide(:title, "All categories") %>
+<h1>All <%= @total %> categories</h1>
+<div>
+  <%= will_paginate %>
+  <ul class="users" style="list-style-type:none" >
+    <% @categories.each do |category| %>
+      <%= render category %>
+    <% end %>
+  </ul>
+  <%= will_paginate %>
+  <%= link_to "Create new category", new_admin_category_path %>
+</div>
