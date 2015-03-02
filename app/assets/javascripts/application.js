@@ -15,3 +15,13 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+
+answers = []
+
+function nextQuestion(index, answer_id, lesson_id) {
+  answers[index] = answer_id
+  document.getElementById("question-" + index).setAttribute("class","hidden")
+  document.getElementById("question-" + (index+1)).setAttribute("class","")
+  if (index == 19)
+    document.getElementById("lesson_answers").value = answers
+}
