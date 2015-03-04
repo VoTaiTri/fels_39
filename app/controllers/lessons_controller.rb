@@ -37,12 +37,12 @@ class LessonsController < ApplicationController
 
   private
     def lesson_answers
-      params.require(:lesson).permit(:words, :answers)
+      params.require(:lesson).permit :word_ids, :answer_ids
     end
 
     def lesson_not_learned
       @lesson = Lesson.find params[:id]
-      unless @lesson.answers.nil?
+      unless @lesson.answer_ids.blank?
         @result = Result.find_by lesson: @lesson
         redirect_to @result
       end

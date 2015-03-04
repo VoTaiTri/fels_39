@@ -8,8 +8,9 @@
       </h1>
     </section>
   </aside>
-  <aside>
-    <div class="col-md-9">
+  <aside class="col-md-9">
+    <h3><%= @lesson.category.title %>: <%= @lesson.score %>/20</h3>
+    <div>
       <div class="col-md-4"><b>Word</b></div>
       <div class="col-md-4"><b>Answer</b></div>
       <div class="col-md-4"><b>Result</b></div>
@@ -20,4 +21,7 @@
       <% end %>
     </div>
   </aside>
+</div>
+<div>
+  <%= button_to "Next lesson", categories_path, method: "get", class: "btn btn-primary" %>
 </div>

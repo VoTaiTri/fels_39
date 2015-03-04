@@ -23,5 +23,5 @@ function nextQuestion(index, answer_id, lesson_id) {
   document.getElementById("question-" + index).setAttribute("class","hidden")
   document.getElementById("question-" + (index+1)).setAttribute("class","")
   if (index == 19)
-    document.getElementById("lesson_answers").value = answers
+    document.getElementById("lesson_answer_ids").value = answers
 }

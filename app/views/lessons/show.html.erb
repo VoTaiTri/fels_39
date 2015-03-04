@@ -14,9 +14,9 @@
 
   <div id="question-20" class="hidden">
     <%= form_for [@category, @lesson] do |f| %>
-      <%= f.hidden_field :words, value: "#{@questions.map {|e| e.id}.join(",")}" %>
-      <%= f.hidden_field :answers %>
-      <%= f.submit %>
+      <%= f.hidden_field :word_ids, value: "#{@questions.map(&:id).join(",")}" %>
+      <%= f.hidden_field :answer_ids %>
+      <%= f.submit "Show result", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
