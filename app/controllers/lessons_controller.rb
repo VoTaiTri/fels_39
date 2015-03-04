@@ -26,6 +26,7 @@ class LessonsController < ApplicationController
 
     if @lesson.update_attributes lesson_answers
       flash[:success] = "Lesson end!"
+      @activity = current_user.activities.create target_id: @lesson.id, action_type: "learn"
       @result = Result.new lesson: @lesson
       redirect_to @result if @result.save
     else
