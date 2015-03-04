@@ -7,5 +7,6 @@ class CreateWords < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :words, :japanese, unique: true
+    add_index :words, [:japanese, :category_id], unique: true
   end
 end

@@ -1,0 +1,24 @@
+<% provide(:title, 'Edit word') %>
+<h1>Add new word</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for [:admin, @word] do |f| %>
+      <%= render 'shared/word_error_messages' %>
+      <% if params[:category_id].blank? %>
+        <%= f.select :category_id, Category.all.collect{|p| [p.title, p.id]}, include_blank: true %>
+      <% end %>  
+      <%= f.label :Word %>
+      <%= f.text_field :japanese, class: 'form-control'%>
+      <%= f.label :Answers %>
+      <%= f.fields_for :answers do |builder| %>
+        <%= builder.text_field :content %>
+        <%= builder.label :correct, class: "checkbox inline" do %>
+          <%= builder.check_box :correct %>
+          <span>Correct?</span>
+        <% end %>
+      <% end %>
+      <%= f.submit "Edit word", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
