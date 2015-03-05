@@ -1,0 +1,22 @@
+<% provide(:title, "Lesson: #{@category.title}") %>
+<div>
+  <% @questions.each_with_index do |question, i| %>
+    <div id="question-<%= i %>" class="<%= "hidden" if i > 0 %>">
+      <h3>Question <%= i+1 %></h3>
+      <span class="col-md-8"><%= question.japanese %></span>
+      <% question.answers.each do |answer| %>
+        <%= button_tag  "#{answer.content}", 
+                        type: "button", 
+                        onclick: "nextQuestion(#{i}, #{answer.id}, #{@lesson.id})" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div id="question-20" class="hidden">
+    <%= form_for [@category, @lesson] do |f| %>
+      <%= f.hidden_field :words, value: "#{@questions.map {|e| e.id}.join(",")}" %>
+      <%= f.hidden_field :answers %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
