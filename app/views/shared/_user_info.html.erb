@@ -1,7 +1,6 @@
 <h1>
-  <%= link_to gravatar_for(current_user, size: 50), current_user %>
-  <%= current_user.name %>
+  <%= link_to gravatar_for(@user, size: 50), @user %>
+  <%= @user.name %>
 </h1>
-<% if logged_in? && current_user?(@user) %>
-  <%= link_to "Edit", edit_user_path(@user) %>
-<% end %> 
+<%= link_to_if(logged_in? && current_user?(@user), "edit", edit_user_path(@user)) %>
+<%= link_to_if(logged_in?, "|| profile", @user) %>
