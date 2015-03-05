@@ -1,0 +1,23 @@
+<% provide(:title, "Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= link_to gravatar_for(@lesson.user, size: 50), @lesson.user %>
+        <%= @lesson.user.name %>
+      </h1>
+    </section>
+  </aside>
+  <aside>
+    <div class="col-md-9">
+      <div class="col-md-4"><b>Word</b></div>
+      <div class="col-md-4"><b>Answer</b></div>
+      <div class="col-md-4"><b>Result</b></div>
+      <% 20.times do |i| %>
+        <div class="col-md-4"><%= @words[i].japanese %></div>
+        <div class="col-md-4"><%= @answers[i].content %></div>
+        <div class="col-md-4"><%= @words[i].correct_answer == @answers[i] %></div>
+      <% end %>
+    </div>
+  </aside>
+</div>
