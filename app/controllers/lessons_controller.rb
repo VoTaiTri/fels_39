@@ -26,7 +26,8 @@ class LessonsController < ApplicationController
 
     if @lesson.update_attributes lesson_answers
       flash[:success] = "Lesson end!"
-      redirect_to categories_path
+      @result = Result.new lesson: @lesson
+      redirect_to @result if @result.save
     else
       flash[:error] = "Lesson failed!"
       redirect_to categories_path
@@ -40,6 +41,9 @@ class LessonsController < ApplicationController
 
     def lesson_not_learned
       @lesson = Lesson.find params[:id]
-      redirect_to categories_path unless @lesson.answers.nil?
+      unless @lesson.answers.nil?
+        @result = Result.find_by lesson: @lesson
+        redirect_to @result
+      end
     end
 end
