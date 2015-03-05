@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150211070530) do
   end
 
   add_index "words", ["category_id"], name: "index_words_on_category_id"
+  add_index "words", ["japanese", "category_id"], name: "index_words_on_japanese_and_category_id", unique: true
   add_index "words", ["japanese"], name: "index_words_on_japanese", unique: true
 
 end

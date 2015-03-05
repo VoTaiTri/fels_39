@@ -1,0 +1,9 @@
+<li id="word-<%= word.id %>">
+  <span class="col-md-3">
+    <%= word.japanese %>
+    <%= link_to " ||edit", edit_admin_word_path(word) %>
+    <%= link_to " ||delete", admin_word_path(word),
+                    method: :delete, data: {confirm: "You sure?"} %>
+  </span>
+  <span class="col-md-3"><%= word.correct_answer.content %></span>
+</li>
