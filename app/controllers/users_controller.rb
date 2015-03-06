@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find params[:id]
     @unfollow = current_user.active_relationships.find_by followed: @user
-    @follow = current_user.active_relationships.build followed: @user
-    @activities = @user.activities.paginate page: params[:page]
+    @follow = current_user.active_relationships.build
+    @activities = @user.feed.paginate page: params[:page]
   end
 
   def create
