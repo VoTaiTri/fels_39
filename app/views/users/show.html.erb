@@ -7,8 +7,8 @@
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @activities.any? %>
-      <h3>Feeds</h3>
+    <% if current_user == @user || (current_user.following?(@user) && @activities.any?) %>
+      <h3>Activities</h3>
       <ol class="entries">
         <%= render @activities %>
       </ol>
