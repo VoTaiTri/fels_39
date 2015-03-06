@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    @activities = current_user.feed.paginate page: params[:page]
   end
 
   def help
