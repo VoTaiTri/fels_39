@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
 
   has_many :lessons, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -47,6 +48,7 @@ class User < ActiveRecord::Base
 
   def follow other_user 
     active_relationships.create followed: other_user
+    @activity = self.activities.create target_id: other_user.id, action_type: "follow"
   end
 
   def unfollow other_user
@@ -55,5 +57,10 @@ class User < ActiveRecord::Base
 
   def following? other_user
     following.include? other_user
+  end
+
+  def feed
+    following_ids = self.following.pluck :id
+    Activity.where user_id: following_ids + [self.id]
   end
 end

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   end
   resources :words
   resources :results
+  resources :activities
 
   namespace :admin do
     resources :users
