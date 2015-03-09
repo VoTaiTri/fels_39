@@ -61,6 +61,6 @@ class Admin::WordsController < ApplicationController
 
   private
   def word_params
-    params.require(:word).permit :japanese, :category_id, answers_attributes: [:id, :content, :correct] 
+    params.require(:word).permit :japanese, :category_id, answers_attributes: [:id, :content, :correct, :_destroy] 
   end
 end

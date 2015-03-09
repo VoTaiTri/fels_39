@@ -13,12 +13,11 @@
         <%= f.text_field :japanese, class: 'form-control'%>
         <%= f.label :Answers %>
         <%= f.fields_for :answers do |builder| %>
-          <%= builder.text_field :content %>
-          <%= builder.label :correct, class: "checkbox inline" do %>
-            <%= builder.check_box :correct %>
-            <span>Correct?</span>
-          <% end %>
+          <%= render 'answer_fields', f: builder %>
         <% end %>
+        <p>
+          <%= link_to_add_fields "Add Answer", f, :answers %>
+        </p>
         <%= f.submit "Create new word", class: "btn btn-primary" %>
       <% end %>
     <% else %>
@@ -28,12 +27,11 @@
         <%= f.text_field :japanese, class: 'form-control'%>
         <%= f.label :Answers %>
         <%= f.fields_for :answers do |builder| %>
-          <%= builder.text_field :content %>
-          <%= builder.label :correct, class: "checkbox inline" do %>
-            <%= builder.check_box :correct %>
-            <span>Correct?</span>
-          <% end %>
+          <%= render 'answer_fields', f: builder %>
         <% end %>
+        <p>
+          <%= link_to_add_fields "Add Answer", f, :answers %>
+        </p>
         <%= f.submit "Create new word", class: "btn btn-primary" %>
       <% end %>
     <% end %>  
