@@ -1,4 +1,4 @@
 class Lesson < ActiveRecord::Base
-  belongs_to :category, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  belongs_to :category
+  belongs_to :user
 end

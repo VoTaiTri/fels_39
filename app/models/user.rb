@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :lessons, dependent: :destroy
   has_many :activities, dependent: :destroy
 
-  def User.digest(string)
+  def User.digest string
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     update_attributes(remember_digest: User.digest(remember_token))
   end
 
-  def authenticated?(remember_token)
+  def authenticated? remember_token
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
@@ -62,5 +62,9 @@ class User < ActiveRecord::Base
   def feed
     following_ids = self.following.pluck :id
     Activity.where user_id: following_ids + [self.id]
+  end
+
+  def user_activity
+    Activity.where user: self
   end
 end
