@@ -3,8 +3,8 @@ class CreateLessons < ActiveRecord::Migration
     create_table :lessons do |t|
       t.references :category, index: true
       t.references :user, index: true
-      t.text :words
-      t.text :answers
+      t.text :word_ids
+      t.text :answer_ids
 
       t.timestamps null: false
     end

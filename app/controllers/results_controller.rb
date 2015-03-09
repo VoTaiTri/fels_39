@@ -4,7 +4,7 @@ class ResultsController < ApplicationController
   def show
     @result = Result.find params[:id]
     @lesson = @result.lesson
-    @words = Word.find @lesson.words.split(",")
-    @answers = Answer.find @lesson.answers.split(",")
+    @words = Word.find @lesson.word_ids.split(",")
+    @answers = Answer.find @lesson.answer_ids.split(",")
   end
 end

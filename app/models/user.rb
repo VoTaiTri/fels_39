@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   def User.digest string
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    BCrypt::Password.create string, cost: cost
   end
 
   def User.new_token
@@ -34,12 +34,12 @@ class User < ActiveRecord::Base
 
   def remember
     self.remember_token = User.new_token
-    update_attributes(remember_digest: User.digest(remember_token))
+    update_attributes remember_digest: User.digest(remember_token)
   end
 
   def authenticated? remember_token
     return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password? remember_token
   end
 
   def forget
@@ -48,11 +48,12 @@ class User < ActiveRecord::Base
 
   def follow other_user 
     active_relationships.create followed: other_user
-    @activity = self.activities.create target_id: other_user.id, action_type: "follow"
+    self.activities.create target_id: other_user.id, action_type: "follow"
   end
 
   def unfollow other_user
     active_relationships.find_by(followed: other_user).destroy
+    self.activities.create target_id: other_user.id, action_type: "unfollow"
   end
 
   def following? other_user
