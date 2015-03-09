@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
 
   def message
     case self.action_type.downcase

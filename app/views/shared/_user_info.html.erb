@@ -4,3 +4,5 @@
 </h1>
 <%= link_to_if(logged_in? && current_user?(@user), "edit", edit_user_path(@user)){} %>
 <%= link_to_if(logged_in? && current_user?(@user), "|| profile", @user){} %>
+<%= link_to_if(logged_in_admin? && !current_user?(@user), "|| delete", admin_user_path(@user),
+                            method: :delete, data: {confirm: "you sure?"}){} %>
